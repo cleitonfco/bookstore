@@ -7,6 +7,11 @@ import (
   "os"
 )
 
+type Profile struct {
+  Name    string
+  Hobbies []string
+}
+
 func main() {
   http.HandleFunc("/", profiles)
   fmt.Println("listening...")
