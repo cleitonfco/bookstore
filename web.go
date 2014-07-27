@@ -22,7 +22,7 @@ func main() {
 }
 
 func profiles(w http.ResponseWriter, r *http.Request) {
-  profile := Profile{"Alex", []string{"Cleiton Francisco", "Programador"}}
+  profile := Profile{"Cleiton Francisco", []string{"Comer", "Programar"}}
 
   js, err := json.Marshal(profile)
   if err != nil {
