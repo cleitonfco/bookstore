@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en" ng-app="myapp">
+<head>
+  <meta charset="UTF-8">
+  <title>My Bookshelf</title>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootswatch/3.1.0/cyborg/bootstrap.min.css">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+</head>
+<!-- putting this at the top to remove the jarring load -->
+<script src="http://code.angularjs.org/1.2.10/angular.min.js"></script>
+<body ng-controller="MainCtl">
+  <div class="jumbotron">
+    <button class="btn btn-primary pull-right" ng-click="add()">
+      <i class="fa fa-plus"></i> Add book
+    </button>
+    <h1>My Bookshelf</h1>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-3 well">
+        <h3>Books</h3>
+        <ul class="nav nav-pills nav-stacked">
+          <li ng-class="{active: b.title == selected.title}" ng-repeat="b in books">
+            <a href="" ng-click="get($index)">{{b.title}}</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-sm-6" ng-show="selected">
+        <h2>{{selected.title}}</h2>
+        <dl class="dl-horizontal">
+          <dt>Author:</dt>
+          <dd>{{selected.author}}</dd>
+        </dl>
+      </div>
+      <div class="col-sm-3" ng-show="selected">
+        <button class="btn btn-primary form-control" ng-click="update(selected.idx)">
+          <i class="fa fa-pencil"></i> Update this book
+        </button>
+        <button class="btn btn-danger form-control" ng-click="remove(selected.idx)">
+          <i class="fa fa-trash-o"></i> Remove this book
+        </button>
+      </div>
+    </div>
+  </div>
+<script src="http://code.angularjs.org/1.2.10/angular-resource.min.js"></script>
+<script>
+  // new dependency: ngResource is included just above
+  var myapp = new angular.module("myapp", ["ngResource"]);
+
+  // inject the $resource dependency here
+  myapp.controller("MainCtl", ["$scope", "$resource", function($scope, $resource){
+    // I designed the backend to play nicely with angularjs so this is all the
+    // setup we need to do all of the ususal operations.
+    var Book = $resource("/books/:id", {id: '@id'}, {});
+
+    $scope.selected = null;
+
+    $scope.list = function(idx){
+      // Notice calls to Book are often given callbacks.
+      Book.query(function(data){
+        $scope.books = data;
+        if(idx != undefined) {
+          $scope.selected = $scope.books[idx];
+          $scope.selected.idx = idx;
+        }
+      }, function(error){
+        alert(error.data);
+      });
+    };
+
+    $scope.list();
+
+    $scope.get = function(idx){
+      // Passing parameters to Book calls will become arguments if
+      // we haven't defined it as part of the path (we did with id)
+      Book.get({id: $scope.books[idx].id}, function(data){
+        $scope.selected = data;
+        $scope.selected.idx = idx;
+      });
+    };
+
+    $scope.add = function() {
+      // I was lazy with the user input.
+      var title = prompt("Enter the book's title.");
+      if(title == null){
+        return;
+      }
+      var author = prompt("Enter the book's author.");
+      if(author == null){
+        return;
+      }
+      // Creating a blank book object means you can still $save
+      var newBook = new Book();
+      newBook.title = title;
+      newBook.author = author;
+      newBook.$save();
+
+      $scope.list();
+    };
+
+    $scope.update = function(idx) {
+      var book = $scope.books[idx];
+      var title = prompt("Enter a new title", book.title);
+      if(title == null) {
+        return;
+      }
+      var author = prompt("Enter a new author", book.author);
+      if(author == null) {
+        return;
+      }
+      book.title = title;
+      book.author = author;
+      // Noticed I never created a new Book()?
+      book.$save();
+
+      $scope.list(idx);
+    };
+
+    $scope.remove = function(idx){
+      $scope.books[idx].$delete();
+      $scope.selected = null;
+      $scope.list();
+    };
+  }]);
+</script>
+</body>
+</html>
