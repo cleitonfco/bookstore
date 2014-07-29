@@ -1,0 +1,41 @@
+.jumbotron {
+  padding: 18px 30px 24px;
+}
+.books {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+.books li {
+  min-height: 400px;
+  text-align: center;
+}
+.books .image-cover {
+  max-width: 100%;
+  margin-bottom: 10px;
+}
+.books .book-name {
+  margin-bottom: 6px;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.4;
+}
+.books .author-name {
+  margin-bottom: 15px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #008000;
+  font-weight: bold;
+}
+
+.pagination li a {
+  cursor: pointer;
+}
+footer {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  margin-top: 100px;
+  color: #777;
+  text-align: center;
+  border-top: 1px solid #E5E5E5;
+}
