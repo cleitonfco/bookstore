@@ -9,6 +9,11 @@
 		{
 			"ImportPath": "github.com/gorilla/mux",
 			"Rev": "14cafe28513321476c73967a5a4f3454b6129c46"
-		}
+		},
+                {
+                        "ImportPath": "github.com/mattbaird/elastigo",
+                        "Comment": "v1.0-39-g369f0d5",
+                        "Rev": "v1.0"
+                }
 	]
 }
