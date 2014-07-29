@@ -146,7 +146,7 @@ func main() {
 
   // setup routes
   router := mux.NewRouter()
-  router.Handle("/", http.RedirectHandler("/bookstore/", 302))
+  router.Handle("/", http.RedirectHandler("/bookstore/books.html", 302))
   router.Handle("/books", handler(searchBooks)).Methods("GET")
   router.PathPrefix("/bookstore/").Handler(http.StripPrefix("/bookstore", fileHandler))
   http.Handle("/", router)
