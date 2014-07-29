@@ -3,6 +3,10 @@
 	"GoVersion": "go1.3",
 	"Deps": [
 		{
+			"ImportPath": "github.com/bitly/go-hostpool",
+			"Rev": "fed86fae5cacdc77e7399937e2f8836563620a2e"
+		},
+		{
 			"ImportPath": "github.com/gorilla/context",
 			"Rev": "14f550f51af52180c2eefed15e5fd18d63c0a64a"
 		},
@@ -10,10 +14,15 @@
 			"ImportPath": "github.com/gorilla/mux",
 			"Rev": "14cafe28513321476c73967a5a4f3454b6129c46"
 		},
-                {
-                        "ImportPath": "github.com/mattbaird/elastigo",
-                        "Comment": "v1.0-39-g369f0d5",
-                        "Rev": "v1.0"
-                }
+		{
+			"ImportPath": "github.com/mattbaird/elastigo/api",
+			"Comment": "v1.0",
+			"Rev": "0c98885a2b2575c99882263dfc4bf6aae9079a63"
+		},
+		{
+			"ImportPath": "github.com/mattbaird/elastigo/core",
+			"Comment": "v1.0",
+			"Rev": "0c98885a2b2575c99882263dfc4bf6aae9079a63"
+		}
 	]
 }
