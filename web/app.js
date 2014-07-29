@@ -4,7 +4,7 @@ var App = React.createClass({
   getInitialState: function() {
     return {
       total: 0, 
-      query: "Tolkien", 
+      query: "", 
       books: [], 
       page: 1
     };
